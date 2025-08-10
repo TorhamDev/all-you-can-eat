@@ -1,8 +1,8 @@
 import os
-from typing import Generator
+from typing import AsyncGenerator
 
 
-def file_generator(size: int | None = None) -> Generator[bytes]:
+async def file_generator(size: int | None = None) -> AsyncGenerator[bytes]:
     reminding = size
 
     while True:

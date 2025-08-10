@@ -3,14 +3,9 @@ from typing import AsyncGenerator
 
 
 async def file_generator(size: int | None = None) -> AsyncGenerator[bytes]:
-    reminding = size
+    size = size if size is not None else float("inf")
 
-    while True:
+    while size > 0:
         chunk = os.urandom(1024)
         yield chunk
-
-        if reminding:
-            reminding -= 1024
-
-            if reminding <= 0:
-                break
+        size -= 1024

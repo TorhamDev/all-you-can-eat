@@ -8,8 +8,8 @@ from src.utils.parser import parse_size_to_byte
 app = FastAPI(debug=True)
 
 
-@app.get("/")
-async def root(
+@app.get("/eat")
+async def eat(
     filename: str, size: Annotated["int | None", Depends(parse_size_to_byte)]
 ) -> StreamingResponse:
     file_iter = file_generator(size=size)

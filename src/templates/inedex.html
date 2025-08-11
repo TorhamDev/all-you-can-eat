@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All You Can Eat</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #ff7b00, #a83e00);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+      }
+      header {
+        text-align: center;
+        padding: 1rem;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .card {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(6px);
+        width: 340px;
+      }
+      label {
+        display: block;
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+      input,
+      select {
+        width: 100%;
+        padding: 0.5rem;
+        margin-top: 0.3rem;
+        border-radius: 5px;
+        border: none;
+        font-size: 1rem;
+      }
+      button {
+        margin-top: 1.5rem;
+        width: 100%;
+        padding: 0.8rem;
+        background: #ff7b00;
+        color: #fff;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.1s ease, background 0.2s;
+      }
+      button:hover {
+        transform: scale(1.03);
+        background: #ff8f26;
+      }
+      .size-group {
+        display: flex;
+        gap: 0.4rem;
+      }
+      .size-group input {
+        flex: 2;
+      }
+      .size-group select {
+        flex: 1;
+      }
+      .url-box {
+        margin-top: 1rem;
+        background: rgba(255, 255, 255, 0.15);
+        padding: 0.5rem;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        word-break: break-all;
+        cursor: pointer;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .url-box:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      footer {
+        text-align: center;
+        padding: 0.8rem;
+        background: rgba(0, 0, 0, 0.4);
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 class="title">🍽️ All You Can Eat 🍔🥗🍕</h1>
+    </header>
+
+    <main>
+      <div class="card">
+        <label for="filename">Filename</label>
+        <input type="text" id="filename" placeholder="example.txt" />
+
+        <label for="sizeValue">Size (optional)</label>
+        <div class="size-group">
+          <input type="number" id="sizeValue" placeholder="e.g. 10" min="1" />
+          <select id="sizeUnit">
+            <option value="KB">🥗 KB</option>
+            <option value="MB" selected>🍔 MB</option>
+            <option value="GB">🍕 GB</option>
+          </select>
+        </div>
+
+        <button onclick="startEating()">Start Eating</button>
+
+        <div
+          id="url"
+          class="url-box"
+          style="display: none"
+          onclick="copyURL()"
+        ></div>
+      </div>
+    </main>
+    <footer>
+      ofc front-end is written by AI. im a back end developer honey :D
+    </footer>
+
+    <script>
+      function startEating() {
+        const filename =
+          document.getElementById("filename").value.trim() || "file.txt";
+        const sizeValue = document.getElementById("sizeValue").value.trim();
+        const sizeUnit = document.getElementById("sizeUnit").value;
+
+        let baseURL = `${window.location.protocol}//${window.location.host}`;
+        let url = `${baseURL}/eat?filename=${encodeURIComponent(filename)}`;
+
+        if (sizeValue) {
+          url += `&size=${encodeURIComponent(sizeValue + sizeUnit)}`;
+        }
+
+        const urlBox = document.getElementById("url");
+        urlBox.textContent = url;
+        urlBox.style.display = "block";
+
+        window.open(url, "_blank");
+      }
+
+      function copyURL() {
+        const text = document.getElementById("url").textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          alert("URL copied to clipboard!");
+        });
+      }
+    </script>
+  </body>
+</html>

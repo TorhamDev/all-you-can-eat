@@ -24,5 +24,8 @@ async def eat(
 
     return StreamingResponse(
         file_iter, headers={
-            "Content-Disposition": f'attachment; filename="{filename}"'}
+            "Content-Disposition": f'attachment; filename="{filename}"',
+            "Content-Length":  str(size),
+        }
+
     )
